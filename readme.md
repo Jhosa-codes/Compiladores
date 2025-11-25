@@ -823,10 +823,6 @@ chcp 65001
 
 Este projeto foi desenvolvido para fins educacionais como trabalho do curso de Compiladores.
 
-## Agradecimentos
-
-Projeto desenvolvido como trabalho acadêmico do curso de Compiladores.
-
 ---
 
 **Mini-Lang Compiler** - Compilador educacional completo e organizado 
@@ -834,4 +830,5 @@ Projeto desenvolvido como trabalho acadêmico do curso de Compiladores.
 **Desenvolvido com:**
 - Python 3
 - Padrão Visitor
+
 - Análise descendente recursiva
