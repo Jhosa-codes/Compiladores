@@ -1,0 +1,6 @@
+# Erro: número incorreto de argumentos
+function soma(int a, int b): int {
+    return a + b;
+}
+
+int resultado = soma(10);  # Falta um argumento

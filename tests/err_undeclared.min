@@ -1,0 +1,3 @@
+# Erro: variável não declarada
+int x = 10;
+print(y);  # y não foi declarada

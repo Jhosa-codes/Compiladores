@@ -1,0 +1,13 @@
+# Cálculo de fatorial recursivo
+function fatorial(int n): int {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * fatorial(n - 1);
+}
+
+int numero = 5;
+int resultado = fatorial(numero);
+
+print("Fatorial de 5 é:");
+print(resultado);

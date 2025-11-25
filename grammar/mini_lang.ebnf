@@ -1,0 +1,188 @@
+(* Gramática Mini-Lang em EBNF *)
+
+(* Programa *)
+program = { statement } ;
+
+(* Declarações *)
+statement = declaration
+          | function_declaration
+          | expression_statement
+          | print_statement
+          | return_statement
+          | if_statement
+          | while_statement
+          | for_statement
+          | block ;
+
+declaration = type IDENTIFIER [ "=" expression ] ";" ;
+
+function_declaration = "function" IDENTIFIER "(" [ parameter_list ] ")" 
+                       [ ":" type ] block ;
+
+parameter_list = parameter { "," parameter } ;
+parameter = type IDENTIFIER ;
+
+(* Statements *)
+expression_statement = expression ";" ;
+
+print_statement = "print" "(" expression ")" ";" ;
+
+return_statement = "return" [ expression ] ";" ;
+
+if_statement = "if" "(" expression ")" ( statement | block ) 
+               [ "else" ( statement | block ) ] ;
+
+while_statement = "while" "(" expression ")" ( statement | block ) ;
+
+for_statement = "for" "(" [ for_init ] ";" [ expression ] ";" [ expression ] ")" 
+                ( statement | block ) ;
+
+for_init = declaration | expression ;
+
+block = "{" { statement } "}" ;
+
+(* Expressões *)
+expression = assignment ;
+
+assignment = logical_or [ "=" assignment ] ;
+
+logical_or = logical_and { "or" logical_and } ;
+
+logical_and = equality { "and" equality } ;
+
+equality = relational { ( "==" | "!=" ) relational } ;
+
+relational = additive { ( "<" | "<=" | ">" | ">=" ) additive } ;
+
+additive = multiplicative { ( "+" | "-" ) multiplicative } ;
+
+multiplicative = unary { ( "*" | "/" | "%" ) unary } ;
+
+unary = ( "not" | "-" ) unary
+      | postfix ;
+
+postfix = primary { array_access | function_call } ;
+
+array_access = "[" expression "]" ;
+
+function_call = "(" [ argument_list ] ")" ;
+
+argument_list = expression { "," expression } ;
+
+primary = INT_LITERAL
+        | FLOAT_LITERAL
+        | STRING_LITERAL
+        | BOOL_LITERAL
+        | IDENTIFIER
+        | "(" expression ")"
+        | array_literal
+        | input_expression ;
+
+array_literal = "[" [ expression { "," expression } ] "]" ;
+
+input_expression = "input" "(" [ expression ] ")" ;
+
+(* Tipos *)
+type = basic_type [ array_suffix ]
+     | "array" "<" type ">" [ array_suffix ] ;
+
+basic_type = "int" | "float" | "bool" | "string" ;
+
+array_suffix = "[" [ INT_LITERAL ] "]" ;
+
+(* Tokens Léxicos *)
+
+(* Palavras-chave *)
+KEYWORD = "if" | "else" | "while" | "for" | "function" | "return"
+        | "int" | "float" | "bool" | "string" | "array"
+        | "print" | "input" | "true" | "false"
+        | "and" | "or" | "not" ;
+
+(* Identificadores *)
+IDENTIFIER = LETTER { LETTER | DIGIT | "_" } ;
+LETTER = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" ;
+DIGIT = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+(* Literais *)
+INT_LITERAL = DIGIT { DIGIT } ;
+
+FLOAT_LITERAL = DIGIT { DIGIT } "." DIGIT { DIGIT } ;
+
+STRING_LITERAL = '"' { STRING_CHAR } '"' 
+               | "'" { STRING_CHAR } "'" ;
+
+STRING_CHAR = ANY_CHAR - ( '"' | "'" | "\\" )
+            | "\\" ESCAPE_CHAR ;
+
+ESCAPE_CHAR = "n" | "r" | "t" | '"' | "'" | "\\" ;
+
+BOOL_LITERAL = "true" | "false" ;
+
+(* Operadores *)
+OPERATOR = "+" | "-" | "*" | "/" | "%"
+         | "==" | "!=" | "<" | "<=" | ">" | ">="
+         | "and" | "or" | "not"
+         | "=" ;
+
+(* Delimitadores *)
+DELIMITER = "(" | ")" | "{" | "}" | "[" | "]"
+          | ";" | "," | ":" ;
+
+(* Comentários *)
+COMMENT = "#" { ANY_CHAR - NEWLINE } NEWLINE ;
+
+(* Espaços em branco *)
+WHITESPACE = " " | "\t" | "\r" | "\n" ;
+
+(* Notas sobre a Gramática *)
+
+(*
+1. Precedência de Operadores (do mais baixo para o mais alto):
+   - Atribuição: =
+   - OR lógico: or
+   - AND lógico: and
+   - Igualdade: ==, !=
+   - Relacional: <, <=, >, >=
+   - Aditivos: +, -
+   - Multiplicativos: *, /, %
+   - Unários: not, - (negação)
+   - Pós-fixos: [], ()
+
+2. Associatividade:
+   - Operadores binários: associativos à esquerda
+   - Atribuição: associativa à direita
+   - Unários: associativos à direita
+
+3. Curto-circuito:
+   - Os operadores 'and' e 'or' usam avaliação de curto-circuito
+   - 'and': se o lado esquerdo for false, não avalia o direito
+   - 'or': se o lado esquerdo for true, não avalia o direito
+
+4. Arrays:
+   - Suporte a arrays unidimensionais
+   - Verificação de limites em tempo de execução
+   - Sintaxe de declaração: type[size] ou array<type>[size]
+   - Inicialização: [elem1, elem2, ...]
+
+5. Funções:
+   - Parâmetros tipados
+   - Tipo de retorno opcional (void se omitido)
+   - Suporte a recursão
+   - Escopo léxico
+
+6. Tipos:
+   - Primitivos: int, float, bool, string
+   - Compostos: array<type>
+   - Conversão implícita: int -> float
+   - Verificação estática de tipos
+
+7. Escopo:
+   - Escopo léxico (estático)
+   - Blocos criam novos escopos
+   - Funções têm seu próprio escopo
+   - Variáveis devem ser declaradas antes do uso
+
+8. Comentários:
+   - Apenas comentários de linha com #
+   - Não há comentários de bloco
+*)

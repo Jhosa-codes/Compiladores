@@ -1,0 +1,3 @@
+# Erro sintático: falta ponto e vírgula
+int x = 10
+print(x)  # Falta ponto e vírgula

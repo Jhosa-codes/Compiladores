@@ -1,0 +1,8 @@
+# Teste de for
+for (int i = 0; i < 5; i = i + 1) {
+    print(i);
+}
+
+for (int j = 10; j > 0; j = j - 2) {
+    print(j);
+}

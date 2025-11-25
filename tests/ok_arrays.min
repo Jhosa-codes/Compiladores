@@ -1,0 +1,14 @@
+# Teste de arrays
+int[5] numeros = [1, 2, 3, 4, 5];
+
+print(numeros[0]);
+print(numeros[2]);
+
+numeros[2] = 10;
+print(numeros[2]);
+
+int i = 0;
+while (i < 5) {
+    print(numeros[i]);
+    i = i + 1;
+}

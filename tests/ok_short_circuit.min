@@ -1,0 +1,12 @@
+# Teste de curto-circuito
+bool a = false;
+bool b = true;
+
+# O segundo operando não deve ser avaliado
+if (a and b) {
+    print("Não deveria imprimir isso");
+}
+
+if (b or a) {
+    print("Este deveria imprimir");
+}

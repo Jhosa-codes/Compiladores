@@ -1,0 +1,4 @@
+# Erro: tipo de retorno incompatível
+function getNumero(): int {
+    return "texto";  # Retornando string em função int
+}

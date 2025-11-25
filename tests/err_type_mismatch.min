@@ -1,0 +1,3 @@
+# Erro: incompatibilidade de tipos
+int x = 10;
+x = "texto";  # Tentando atribuir string a int

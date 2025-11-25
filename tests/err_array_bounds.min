@@ -1,0 +1,3 @@
+# Erro: acesso fora dos limites do array
+int[3] arr = [1, 2, 3];
+print(arr[5]);  # Índice 5 está fora dos limites

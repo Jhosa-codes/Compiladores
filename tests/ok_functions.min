@@ -1,0 +1,21 @@
+# Teste de funções
+function soma(int a, int b): int {
+    return a + b;
+}
+
+function imprimirMensagem(string msg) {
+    print(msg);
+}
+
+function multiplicar(int x, int y): int {
+    int resultado = x * y;
+    return resultado;
+}
+
+int r1 = soma(10, 20);
+print(r1);
+
+imprimirMensagem("Testando funções!");
+
+int r2 = multiplicar(5, 7);
+print(r2);

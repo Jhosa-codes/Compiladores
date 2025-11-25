@@ -1,0 +1,13 @@
+# Teste de variáveis e tipos
+int x = 10;
+float y = 3.14;
+bool flag = true;
+string nome = "Mini-Lang";
+
+print(x);
+print(y);
+print(flag);
+print(nome);
+
+x = x + 5;
+print(x);

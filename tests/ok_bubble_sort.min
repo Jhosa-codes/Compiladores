@@ -1,0 +1,23 @@
+# Bubble sort
+int[5] arr = [64, 34, 25, 12, 22];
+
+print("Array original:");
+for (int i = 0; i < 5; i = i + 1) {
+    print(arr[i]);
+}
+
+# Bubble sort
+for (int i = 0; i < 5; i = i + 1) {
+    for (int j = 0; j < 4 - i; j = j + 1) {
+        if (arr[j] > arr[j + 1]) {
+            int temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+        }
+    }
+}
+
+print("Array ordenado:");
+for (int i = 0; i < 5; i = i + 1) {
+    print(arr[i]);
+}
